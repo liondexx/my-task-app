@@ -1,0 +1,138 @@
+<div class="mx-auto max-w-4xl" *ngIf="task">
+  <!-- Header with Back Button -->
+  <div class="mb-8 animate-slide-up">
+    <button 
+      routerLink="/" 
+      class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/70 backdrop-blur-md border-2 border-primary/30 rounded-xl text-primary font-bold hover:bg-white hover:border-primary hover:shadow-md transition-all duration-200 mb-4"
+    >
+      ← Voltar
+    </button>
+    <div class="flex items-center gap-3">
+      <div class="text-5xl">📌</div>
+      <div>
+        <h1 class="section-header text-3xl md:text-4xl">Detalhes da Tarefa</h1>
+        <p class="text-sm text-gray-600 mt-1">Gerencie e edite os detalhes da sua tarefa</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Mode -->
+  <div *ngIf="!editMode" class="space-y-6 animate-slide-up">
+    <div class="card glass-effect p-8">
+      <!-- Title Section -->
+      <div class="mb-6 pb-6 border-b-2 border-primary/20">
+        <div class="flex items-start justify-between gap-4 mb-3">
+          <h2 class="text-3xl md:text-4xl font-bold text-primary-dark">{{ task.title }}</h2>
+          <span *ngIf="task.completed" class="badge badge-success animate-pulse">
+            ✓ Concluída
+          </span>
+        </div>
+      </div>
+
+      <!-- Meta Information -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-7 p-5 bg-gradient-to-r from-primary/5 to-primary/0 rounded-xl">
+        <div class="flex items-center gap-3">
+          <span class="text-3xl">📅</span>
+          <div>
+            <p class="text-xs text-gray-600 uppercase font-bold">Data de Criação</p>
+            <p class="text-lg font-bold text-primary">{{ task.createdAt | date:'d MMMM, yyyy' }}</p>
+            <p class="text-xs text-gray-500">{{ task.createdAt | date:'HH:mm' }}</p>
+          </div>
+        </div>
+        <div *ngIf="task.dueDate" class="flex items-center gap-3">
+          <span class="text-3xl">⏰</span>
+          <div>
+            <p class="text-xs text-gray-600 uppercase font-bold">Data de Prazo</p>
+            <p class="text-lg font-bold" [class]="isUrgent(task) ? 'text-accent' : 'text-success'">
+              {{ task.dueDate | date:'d MMMM, yyyy' }}
+            </p>
+            <p *ngIf="isUrgent(task)" class="text-xs text-accent font-bold animate-pulse">⚠️ Urgente!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Details Section -->
+      <div class="mb-7">
+        <h3 class="text-sm font-bold text-primary uppercase mb-3 flex items-center gap-2">
+          <span>📝</span>
+          <span>Detalhes</span>
+        </h3>
+        <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-5 border-l-4 border-primary">
+          <p class="text-gray-700 leading-relaxed whitespace-pre-wrap">
+            {{ task.details || '✨ Sem detalhes adicionados' }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col md:flex-row gap-3 pt-6 border-t-2 border-primary/20">
+        <button (click)="edit()" class="btn-primary flex-1 gap-2">
+          ✏️ Editar
+        </button>
+        <button (click)="toggle()" [class]="task.completed ? 'btn-secondary' : 'btn-success'" class="flex-1">
+          {{ task.completed ? '↩️ Reabrir' : '✓ Concluir' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Mode -->
+  <div *ngIf="editMode" class="space-y-6 animate-slide-up">
+    <div class="card glass-effect p-8">
+      <div class="mb-6 pb-6 border-b-2 border-primary/20">
+        <h2 class="text-3xl font-bold text-primary-dark">✏️ Editar Tarefa</h2>
+        <p class="text-sm text-gray-600 mt-2">Atualize os detalhes da sua tarefa</p>
+      </div>
+      
+      <div class="space-y-6">
+        <!-- Title Input -->
+        <div class="group">
+          <label class="block text-sm font-bold text-primary/80 uppercase mb-2.5 group-focus-within:text-primary transition-colors">
+            🎯 Título *
+          </label>
+          <input 
+            [(ngModel)]="title" 
+            type="text" 
+            placeholder="Digite o título da tarefa..." 
+            class="input-field text-lg font-semibold"
+          />
+        </div>
+        
+        <!-- Details Input -->
+        <div class="group">
+          <label class="block text-sm font-bold text-primary/80 uppercase mb-2.5 group-focus-within:text-primary transition-colors">
+            📝 Detalhes
+          </label>
+          <textarea 
+            [(ngModel)]="details" 
+            placeholder="Adicione detalhes sobre a tarefa..." 
+            class="input-field"
+            rows="5"
+          ></textarea>
+        </div>
+        
+        <!-- Due Date Input -->
+        <div class="group">
+          <label class="block text-sm font-bold text-primary/80 uppercase mb-2.5 group-focus-within:text-primary transition-colors">
+            ⏰ Data de Conclusão
+          </label>
+          <input 
+            type="date" 
+            [(ngModel)]="dueDate" 
+            class="input-field"
+          />
+        </div>
+      </div>
+
+      <!-- Save/Cancel Buttons -->
+      <div class="flex flex-col md:flex-row gap-3 mt-8 pt-6 border-t-2 border-primary/20">
+        <button (click)="save()" class="btn-primary flex-1 gap-2">
+          💾 Salvar Alterações
+        </button>
+        <button (click)="editMode=false" class="btn-secondary flex-1">
+          ✕ Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

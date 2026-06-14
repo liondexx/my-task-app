@@ -1,0 +1,189 @@
+$primary: #2d5f8d;
+$primary-light: #4a7ba7;
+$primary-dark: #1e3f5a;
+$accent: #ff6b6b;
+$success: #51cf66;
+$text-muted: #6c757d;
+$border: #dee2e6;
+$shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+$shadow-hover: 0 8px 24px rgba(0,0,0,0.15);
+
+.container {
+  padding: 16px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.top {
+  text-align: center;
+  margin-bottom: 24px;
+  padding-top: 8px;
+}
+
+.top h1 {
+  color: $primary;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.create {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: $shadow-md;
+}
+
+.create input,
+.create textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid $border;
+  border-radius: 12px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba(45, 95, 141, 0.1);
+    outline: none;
+  }
+}
+
+.create textarea {
+  min-height: 100px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.create button.primary {
+  background: linear-gradient(135deg, $primary 0%, $primary-light 100%);
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(45, 95, 141, 0.2);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-hover;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.list {
+  margin-bottom: 32px;
+}
+
+.list h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: $primary-dark;
+  margin-bottom: 16px;
+}
+
+.list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.list li {
+  background: white;
+  padding: 16px;
+  border-radius: 14px;
+  box-shadow: $shadow-md;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 4px solid $primary;
+
+  &:hover {
+    transform: translateX(4px);
+    box-shadow: $shadow-hover;
+  }
+
+  strong {
+    font-size: 15px;
+    color: $primary-dark;
+    margin-bottom: 4px;
+    display: block;
+  }
+}
+
+.meta {
+  color: $text-muted;
+  font-size: 12px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+
+  button {
+    background: $success;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: darken($success, 10%);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+.empty {
+  color: $text-muted;
+  text-align: center;
+  padding: 32px 16px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: $shadow-md;
+  font-size: 15px;
+}
+
+@media (min-width: 640px) {
+  .create {
+    flex-direction: row;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .create input,
+  .create textarea {
+    flex: 1;
+  }
+
+  .create button.primary {
+    flex-shrink: 0;
+    margin-top: 0;
+  }
+}
+

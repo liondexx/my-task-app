@@ -1,0 +1,29 @@
+<div class="px-4 py-5 mx-auto max-w-2xl">
+  <div class="text-center mb-6">
+    <h1 class="text-4xl font-bold text-primary">✅ Tarefas Concluídas</h1>
+  </div>
+
+  <div *ngIf="tasks.length === 0" class="bg-white rounded-lg shadow-md p-12 text-center">
+    <p class="text-gray-500 font-medium">Nenhuma tarefa concluída ainda. Comece a concluir tarefas! 🚀</p>
+  </div>
+
+  <div *ngIf="tasks.length > 0" class="space-y-3">
+    <div 
+      *ngFor="let t of tasks"
+      class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg hover:translate-x-1 transition-all duration-200 border-l-4 border-success flex justify-between items-center gap-3"
+    >
+      <div class="flex-1">
+        <strong class="block text-sm font-semibold text-primary-dark mb-1">{{ t.title }}</strong>
+        <div class="text-xs text-gray-600">
+          ✅ Concluída em {{ t.createdAt | date:'short' }}
+        </div>
+      </div>
+      <button 
+        (click)="undo(t)"
+        class="px-3 py-2 bg-gray-500 text-white text-xs font-semibold rounded-lg hover:bg-gray-600 transition-all duration-200 whitespace-nowrap"
+      >
+        ↩️ Reabrir
+      </button>
+    </div>
+  </div>
+</div>
